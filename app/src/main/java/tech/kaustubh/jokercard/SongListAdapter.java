@@ -15,13 +15,15 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongHo
     @Override
     public SongHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.songview, parent, false);
+        //itemView.toString();
         Log.d("inside", "songlistadpater");
         return new SongHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(SongHolder holder, int position) {
-        holder.text.setText("Hello");
+        String trmp = "heelo";
+        holder.text.setText("hello");
         Log.d("inside", "songlistadpater");
 
     }
@@ -29,7 +31,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongHo
 
     @Override
     public int getItemCount() {
-        return 0;
+        return 6;
     }
 
     public static class SongHolder extends RecyclerView.ViewHolder {
@@ -38,7 +40,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongHo
         public SongHolder(View itemView) {
             super(itemView);
             Log.d("inside", "songlistadpater");
-            text = (TextView) itemView.findViewById(R.id.songList);
+            text = (TextView) itemView.findViewById(R.id.songView);
         }
 
 

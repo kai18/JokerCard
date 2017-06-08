@@ -17,10 +17,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         songList = (RecyclerView) findViewById(R.id.songList);
-        songList.setLayoutManager(new LinearLayoutManager(this));
         SongListAdapter adapter = new SongListAdapter();
         songList.setAdapter(adapter);
         songList.setItemAnimator(new DefaultItemAnimator());
+        songList.setLayoutManager(new LinearLayoutManager(this));
         adapter.notifyDataSetChanged();
         Log.d("at", "main");
 
