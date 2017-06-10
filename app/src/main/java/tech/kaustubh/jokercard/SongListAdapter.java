@@ -11,7 +11,7 @@ import android.widget.TextView;
  * Created by kaustubh on 6/7/17.
  */
 
-public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongHolder> {
+public class SongListAdapter extends RecyclerView.Adapter<SongHolder> {
     @Override
     public SongHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.songview, parent, false);
@@ -32,18 +32,6 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongHo
     @Override
     public int getItemCount() {
         return 100;
-    }
-
-    public static class SongHolder extends RecyclerView.ViewHolder {
-        TextView text;
-
-        public SongHolder(View itemView) {
-            super(itemView);
-            Log.d("inside", "songlistadpater");
-            text = (TextView) itemView.findViewById(R.id.songView);
-        }
-
-
     }
 
 }
