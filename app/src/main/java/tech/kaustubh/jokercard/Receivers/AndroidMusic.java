@@ -14,7 +14,8 @@ import tech.kaustubh.jokercard.Song;
  * Created by kaustubh on 6/10/17.
  */
 
-public class AndroidMusic extends BroadcastReceiver{
+public class AndroidMusic extends MusicReceiver{
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("Player", "Logged");
@@ -30,5 +31,7 @@ public class AndroidMusic extends BroadcastReceiver{
         song.setTitle((String) b.get("track"));
         song.setAlbum((String) b.get("album"));
         MainActivity.mainActivity.updateSongList(song);
+        super.onReceive(context, intent);
+
     }
 }
