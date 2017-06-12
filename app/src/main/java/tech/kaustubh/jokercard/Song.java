@@ -8,6 +8,16 @@ public class Song {
     private String title = null;
     private String album = null;
 
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    private String artist = null;
+
     public void setTitle(String title) {
         this.title = title;
     }
