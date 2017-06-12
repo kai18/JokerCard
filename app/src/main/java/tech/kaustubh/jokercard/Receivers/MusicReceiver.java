@@ -1,11 +1,13 @@
 package tech.kaustubh.jokercard.Receivers;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import tech.kaustubh.jokercard.JokerDatabaseHelper;
 import tech.kaustubh.jokercard.MainActivity;
@@ -21,6 +23,8 @@ public class MusicReceiver extends BroadcastReceiver {
     String title = "title";
     String album = "album";
     String artist = "artist";
+    String table ="ScrobbleTable";
+    Song nowPlaying = null;
     MusicReceiver()
     {
         databaseHelper = new JokerDatabaseHelper(MainActivity.mainActivity, null, null, 2);
@@ -44,8 +48,21 @@ public class MusicReceiver extends BroadcastReceiver {
         Log.d("rEAD","SDKD");
     }
 
-    public void insertSong(Song song)
+    public int insertSong(Song song)
     {
+        if (nowPlaying == song)
+            return -1;
+        nowPlaying = song;
         SQLiteDatabase dbHandler = databaseHelper.getWritableDatabase();
+        ContentValues songValues = new ContentValues();
+        songValues.put("Album", song.getAlbum());
+        songValues.put("Artist", song.getArtist());
+        songValues.put("Title", song.getTitle());
+        long result = dbHandler.insert(table, null, songValues);
+        if(result == -1)
+            Toast.makeText(MainActivity.mainActivity, "Unsuccessful",Toast.LENGTH_LONG);
+        Log.d("Result", String.valueOf(result));
+        MainActivity.mainActivity.updateSongList(song);
+        return 0;
     }
 }

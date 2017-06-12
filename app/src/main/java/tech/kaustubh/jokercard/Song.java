@@ -7,6 +7,7 @@ package tech.kaustubh.jokercard;
 public class Song {
     private String title = null;
     private String album = null;
+    private String artist = null;
 
     public String getArtist() {
         return artist;
@@ -15,8 +16,6 @@ public class Song {
     public void setArtist(String artist) {
         this.artist = artist;
     }
-
-    private String artist = null;
 
     public void setTitle(String title) {
         this.title = title;

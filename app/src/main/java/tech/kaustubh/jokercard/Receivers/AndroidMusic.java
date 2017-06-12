@@ -30,7 +30,6 @@ public class AndroidMusic extends MusicReceiver{
         Log.d("album", (String) b.get("album"));
         song.setTitle((String) b.get("track"));
         song.setAlbum((String) b.get("album"));
-        MainActivity.mainActivity.updateSongList(song);
         super.onReceive(context, intent);
 
     }
