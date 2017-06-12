@@ -13,7 +13,7 @@ public class JokerDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "Joker";
     private static final int DB_VERSION = 1;
-    private static final String DB_CREATE = "CREATE TABLE ScrobbleTable" +
+    private static final String DB_CREATE = "CREATE TABLE IF NOT EXIST ScrobbleTable" +
             "(id integer primary key autoincrement," +
             "Title varchar(255)," +
             "Album varchar(255));";
