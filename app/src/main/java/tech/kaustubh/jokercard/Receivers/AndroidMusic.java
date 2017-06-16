@@ -29,13 +29,11 @@ public class AndroidMusic extends MusicReceiver{
         for (String key: b.keySet()) {
             Log.d("Key", key);
         }
-        if(intent.getAction() == ACTION_ANDROID_METACHANGED) {
             Song song = new Song();
             Log.d("Track", (String) b.get("track"));
             Log.d("album", (String) b.get("album"));
             song.setTitle((String) b.get("track"));
             song.setAlbum((String) b.get("album"));
             super.onReceive(context, intent);
-        }
     }
 }
