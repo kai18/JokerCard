@@ -50,8 +50,8 @@ public class MusicReceiver extends BroadcastReceiver {
 
     public int insertSong(Song song)
     {
-        if (nowPlaying == song)
-            return -1;
+        if (nowPlaying != null && nowPlaying.getTitle() == song.getTitle())
+            return 1;
         nowPlaying = song;
         SQLiteDatabase dbHandler = databaseHelper.getWritableDatabase();
         ContentValues songValues = new ContentValues();
@@ -61,6 +61,8 @@ public class MusicReceiver extends BroadcastReceiver {
         long result = dbHandler.insert(table, null, songValues);
         if(result == -1)
             Toast.makeText(MainActivity.mainActivity, "Unsuccessful",Toast.LENGTH_LONG);
+        else
+            Toast.makeText(MainActivity.mainActivity, "successful",Toast.LENGTH_LONG);
         Log.d("Result", String.valueOf(result));
         MainActivity.mainActivity.updateSongList(song);
         return 0;
