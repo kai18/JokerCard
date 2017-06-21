@@ -1,38 +1,32 @@
 package tech.kaustubh.jokercard;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
-public class MainActivity extends AppCompatActivity {
-    public static MainActivity mainActivity = null;
+/**
+ * Created by kaustubh on 6/21/17.
+ */
 
+public class ScrobbleListActivity extends AppCompatActivity {
+    public static ScrobbleListActivity scrobbleListActivity = null;
     RecyclerView songListView = null;
     SongListAdapter adapter = null;
     Song nowPlaying = null;
-
     ArrayList<Song> songList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mainActivity = this;
+        scrobbleListActivity = this;
         songList = new ArrayList<>();
         songListView = (RecyclerView) findViewById(R.id.songList);
         adapter = new SongListAdapter(songList);
