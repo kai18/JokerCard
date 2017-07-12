@@ -26,6 +26,7 @@ public class ScrobblingNowNotification {
      */
     private static final String NOTIFICATION_TAG = "ScrobblingNow";
 
+
     /**
      * Shows the notification, or updates a previously shown notification of
      * this type, with the given parameters.

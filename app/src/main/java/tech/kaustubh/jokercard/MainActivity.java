@@ -25,7 +25,9 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView songListView = null;
     SongListAdapter adapter = null;
     Song nowPlaying = null;
+    ScrobblingNowNotification notification = null;
 
+    JokerDatabaseHelper helper;
     ArrayList<Song> songList = null;
 
     @Override
@@ -40,8 +42,9 @@ public class MainActivity extends AppCompatActivity {
         songListView.setItemAnimator(new DefaultItemAnimator());
         songListView.setLayoutManager(new LinearLayoutManager(this));
         Log.d("at", "main");
-        JokerDatabaseHelper helper = new JokerDatabaseHelper(this, null, null, 1);
+        helper = new JokerDatabaseHelper(this, null, null, 1);
         helper.getWritableDatabase();
+        final String lol = "lol";
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    
     public void updateSongList(Song song)
     {
         if(nowPlaying == null) {
@@ -75,4 +79,16 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
     }
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+    }
+
 }
