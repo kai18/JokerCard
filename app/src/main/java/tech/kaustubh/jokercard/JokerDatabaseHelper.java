@@ -16,8 +16,9 @@ public class JokerDatabaseHelper extends SQLiteOpenHelper {
     static final String TITLE = "Title";
     static final String ALBUM = "Album";
     static final String ARTIST ="Artist";
+    static final String ScrobbleTable = "ScrobbleTable";
 
-    private static final String DB_CREATE = "CREATE TABLE IF NOT EXIST ScrobbleTable" +
+    private static final String DB_CREATE = "CREATE TABLE IF NOT EXIST "+ScrobbleTable +
             "(id integer primary key autoincrement," +
             TITLE+ "varchar(255)," +
             ALBUM+ "varchar(255)," +

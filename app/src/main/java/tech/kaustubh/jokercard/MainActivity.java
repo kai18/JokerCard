@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     Song nowPlaying = null;
     ScrobblingNowNotification notification = null;
 
-    JokerDatabaseHelper helper;
+
     ArrayList<Song> songList = null;
 
     @Override
@@ -42,8 +42,7 @@ public class MainActivity extends AppCompatActivity {
         songListView.setItemAnimator(new DefaultItemAnimator());
         songListView.setLayoutManager(new LinearLayoutManager(this));
         Log.d("at", "main");
-        helper = new JokerDatabaseHelper(this, null, null, 1);
-        helper.getWritableDatabase();
+
         final String lol = "lol";
     }
 
