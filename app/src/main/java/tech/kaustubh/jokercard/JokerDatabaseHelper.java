@@ -18,11 +18,11 @@ public class JokerDatabaseHelper extends SQLiteOpenHelper {
     static final String ARTIST ="Artist";
     static final String ScrobbleTable = "ScrobbleTable";
 
-    private static final String DB_CREATE = "CREATE TABLE IF NOT EXIST "+ScrobbleTable +
+    private static final String DB_CREATE = "CREATE TABLE "+ScrobbleTable +
             "(id integer primary key autoincrement," +
-            TITLE+ "varchar(255)," +
-            ALBUM+ "varchar(255)," +
-             "Artist varchar(255));";
+            TITLE+" varchar(255)," +
+            ALBUM+" varchar(255)," +
+            ARTIST+" varchar(255));";
     public JokerDatabaseHelper(Context context, String name,
                                 SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DB_NAME, factory, DB_VERSION);

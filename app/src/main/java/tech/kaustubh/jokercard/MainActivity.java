@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     SongListAdapter adapter = null;
     Song nowPlaying = null;
     ScrobblingNowNotification notification = null;
+    SongDatabase db = null;
 
 
     ArrayList<Song> songList = null;
@@ -42,8 +43,11 @@ public class MainActivity extends AppCompatActivity {
         songListView.setItemAnimator(new DefaultItemAnimator());
         songListView.setLayoutManager(new LinearLayoutManager(this));
         Log.d("at", "main");
-
-        final String lol = "lol";
+        db = new SongDatabase(this);
+        int numSongList = 10;
+        while(numSongList-- > 0)
+            songList.add(db.getSong());
+        adapter.notifyDataSetChanged();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -73,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         if (nowPlaying.getTitle() != song.getTitle())
         {
             Log.d("Should we be", "Here?");
+            db.insertSong(song);
             nowPlaying = song;
             songList.add(song);
             adapter.notifyDataSetChanged();
