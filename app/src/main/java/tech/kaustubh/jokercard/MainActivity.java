@@ -45,8 +45,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d("at", "main");
         db = new SongDatabase(this);
         int numSongList = 10;
-        while(numSongList-- > 0)
-            songList.add(db.getSong());
+        while(numSongList-- > 0) {
+            Song song = db.getSong();
+            Log.d("Adding Song", song.getTitle());
+            songList.add(song);
+        }
         adapter.notifyDataSetChanged();
     }
 

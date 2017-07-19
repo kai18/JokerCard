@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -58,13 +59,15 @@ public class MusicReceiver extends BroadcastReceiver {
         songValues.put("Album", song.getAlbum());
         songValues.put("Artist", song.getArtist());
         songValues.put("Title", song.getTitle());
-        long result = dbHandler.insert(table, null, songValues);
+       /* long result = dbHandler.insert(table, null, songValues);
         if(result == -1)
             Toast.makeText(MainActivity.mainActivity, "Unsuccessful",Toast.LENGTH_LONG);
         else
             Toast.makeText(MainActivity.mainActivity, "successful",Toast.LENGTH_LONG);
-        Log.d("Result", String.valueOf(result));
-        MainActivity.mainActivity.updateSongList(song);
+        Log.d("Result", String.valueOf(result));*/
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            MainActivity.mainActivity.updateSongList(song);
+        }
         return 0;
     }
 }

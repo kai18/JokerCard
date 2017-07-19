@@ -14,14 +14,20 @@ class SongDatabase {
     JokerDatabaseHelper helper;
     SQLiteDatabase databaseWriter;
     SQLiteDatabase databaseReader;
-    Cursor songCursor;
+    Cursor cursor;
     public SongDatabase(Context mainActivitycontext) {
         helper = new JokerDatabaseHelper(mainActivitycontext, null, null, 1);
         databaseWriter = helper.getWritableDatabase();
         databaseReader = helper.getReadableDatabase();
-        String songQuery = "Select * From "+ JokerDatabaseHelper.ScrobbleTable;
-        songCursor = databaseReader.rawQuery(songQuery, null);
-        songCursor.moveToFirst();
+        String projection[] ={"id", JokerDatabaseHelper.TITLE, JokerDatabaseHelper.ALBUM,
+                JokerDatabaseHelper.ARTIST};
+        String sortColumn = "id";
+        String sortOrder = "Desc";
+        cursor = databaseReader.query(JokerDatabaseHelper.ScrobbleTable,
+                projection, null, null, null, null, sortColumn+ " " + sortOrder);
+        if(cursor == null)
+            Log.d("Cursor", "is null");
+        cursor.moveToFirst();
     }
 
     private void getSongCursor()
@@ -32,14 +38,16 @@ class SongDatabase {
 
     public Song getSong()
     {
-        String projection[] ={JokerDatabaseHelper.TITLE, JokerDatabaseHelper.ALBUM,
-                JokerDatabaseHelper.ARTIST};
         Song song = new Song();
-        Log.d("Database", String.valueOf(songCursor.getColumnCount()));
-        song.setArtist(songCursor.getString(2));
-        song.setAlbum(songCursor.getString(1));
-        song.setTitle(songCursor.getString(1));
-        songCursor.moveToNext();
+        if(cursor.getCount() > 0) {
+            Log.d("Database count", String.valueOf(cursor.getColumnCount()));
+            Log.d("Song id", String.valueOf(cursor.getString(0)));
+
+            song.setArtist(cursor.getString(3));
+            song.setAlbum(cursor.getString(2));
+            song.setTitle(cursor.getString(1));
+            cursor.moveToNext();
+        }
         return song;
 
     }
