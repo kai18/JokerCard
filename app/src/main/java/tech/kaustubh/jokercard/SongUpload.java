@@ -18,8 +18,6 @@ public class SongUpload {
 
     private static final String POST_URL = "http://kathicastle.com/insert_list.php?";
 
-    private static final String POST_PARAMS = "id=1";
-
     public void uploadSong(Song song)
     {
 
