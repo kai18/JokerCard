@@ -29,6 +29,7 @@
                 <action android:name="com.android.music.queuechanged" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

@@ -20,6 +20,10 @@ public class AndroidMusic extends MusicReceiver{
     public static final String ACTION_ANDROID_METACHANGED = "com.android.music.metachanged";
 
     public static final String PACKAGE_NAME = "com.android.music";
+    AndroidMusic()
+    {
+
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {

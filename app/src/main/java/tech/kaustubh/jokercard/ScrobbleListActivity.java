@@ -16,16 +16,23 @@ import java.util.ArrayList;
  */
 
 public class ScrobbleListActivity extends AppCompatActivity {
+
     public static ScrobbleListActivity scrobbleListActivity = null;
+    public static boolean isActive = false;
+
     RecyclerView songListView = null;
+
     SongListAdapter adapter = null;
+
     Song nowPlaying = null;
+    SongDatabase db = null;
+
     ArrayList<Song> songList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.songlistview);
         scrobbleListActivity = this;
         songList = new ArrayList<>();
         songListView = (RecyclerView) findViewById(R.id.songList);
@@ -34,24 +41,23 @@ public class ScrobbleListActivity extends AppCompatActivity {
         songListView.setItemAnimator(new DefaultItemAnimator());
         songListView.setLayoutManager(new LinearLayoutManager(this));
         Log.d("at", "main");
-        JokerDatabaseHelper helper = new JokerDatabaseHelper(this, null, null, 1);
-        helper.getWritableDatabase();
+        db = new SongDatabase(this);
+        int numSongList = 10;
+        while(numSongList-- > 0) {
+            Song song = db.getSong();
+            Log.d("Adding Song", song.getTitle());
+            songList.add(song);
+        }
+        adapter.notifyDataSetChanged();
+
+        isActive = true;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void updateSongList(Song song)
     {
         if(nowPlaying == null) {
             nowPlaying = song;
             songList.add(song);
-            adapter.notifyDataSetChanged();
         }
         String title = song.getTitle();
         Log.d("Tac", title);
@@ -64,9 +70,29 @@ public class ScrobbleListActivity extends AppCompatActivity {
         if (nowPlaying.getTitle() != song.getTitle())
         {
             Log.d("Should we be", "Here?");
+            db.insertSong(song);
             nowPlaying = song;
             songList.add(song);
-            adapter.notifyDataSetChanged();
         }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+    }
+
 }
