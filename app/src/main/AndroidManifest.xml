@@ -19,6 +19,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ScrobbleListActivity">
+        </activity>
+
         <receiver
             android:name=".Receivers.AndroidMusic"
             android:enabled="true"

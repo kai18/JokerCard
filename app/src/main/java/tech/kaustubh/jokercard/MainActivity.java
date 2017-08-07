@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends AppCompatActivity {
     public static MainActivity mainActivity = null;
 
+    Button login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
     public void onResume()
     {
         super.onResume();
+    }
+
+    public void login(View view)
+    {
+        startActivity(new Intent(this, ScrobbleListActivity.class));
+
     }
 
 

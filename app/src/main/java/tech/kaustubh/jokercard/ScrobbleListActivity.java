@@ -45,7 +45,7 @@ public class ScrobbleListActivity extends AppCompatActivity {
         int numSongList = 10;
         while(numSongList-- > 0) {
             Song song = db.getSong();
-            Log.d("Adding Song", song.getTitle());
+//            Log.d("Adding Song", song.getTitle());
             songList.add(song);
         }
         adapter.notifyDataSetChanged();
@@ -73,6 +73,7 @@ public class ScrobbleListActivity extends AppCompatActivity {
             db.insertSong(song);
             nowPlaying = song;
             songList.add(song);
+            adapter.notifyDataSetChanged();
         }
     }
 
