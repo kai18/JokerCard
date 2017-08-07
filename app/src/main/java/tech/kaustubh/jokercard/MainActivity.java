@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +46,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void login(View view)
     {
+        EditText userId = (EditText) findViewById(R.id.userId);
+        EditText password = (EditText) findViewById(R.id.password);
+        String id = String.valueOf(userId.getText());
+        String pass = String.valueOf(password.getText());
+        SharedPreferences sharedPref = this.getSharedPreferences(
+                "nowplaying", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("userId", id);
+        editor.commit();
+
         startActivity(new Intent(this, ScrobbleListActivity.class));
 
     }

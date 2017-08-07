@@ -36,6 +36,8 @@ public class MusicReceiver extends BroadcastReceiver {
 
     JokerDatabaseHelper databaseHelper;
 
+
+
     MusicReceiver()
     {
         databaseHelper = new JokerDatabaseHelper(MainActivity.mainActivity, null, null, 2);
