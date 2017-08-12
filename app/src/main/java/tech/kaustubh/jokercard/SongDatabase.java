@@ -12,11 +12,12 @@ import android.util.Log;
 
 public class SongDatabase
 {
-    JokerDatabaseHelper helper;
-    SQLiteDatabase databaseWriter;
-    SQLiteDatabase databaseReader;
-    Cursor cursor;
-    public SongDatabase(Context mainActivitycontext)
+    private JokerDatabaseHelper helper;
+    private SQLiteDatabase databaseWriter;
+    private SQLiteDatabase databaseReader;
+    private Cursor cursor;
+    private static SongDatabase songDatabase;
+    private SongDatabase(Context mainActivitycontext)
     {
         helper = new JokerDatabaseHelper(mainActivitycontext, null, null, 1);
         databaseWriter = helper.getWritableDatabase();
@@ -35,10 +36,9 @@ public class SongDatabase
     private void getSongCursor()
     {
 
-
     }
 
-    public Song getSong()
+    Song getSong()
     {
         Song song = new Song();
         if(cursor.getCount() > 0) {
@@ -54,12 +54,19 @@ public class SongDatabase
 
     }
 
-    public void insertSong(Song song)
+    void insertSong(Song song)
     {
         ContentValues songValues = new ContentValues();
         songValues.put(JokerDatabaseHelper.ALBUM, song.getAlbum());
         songValues.put(JokerDatabaseHelper.ARTIST, song.getArtist());
         songValues.put(JokerDatabaseHelper.TITLE,song.getTitle());
         databaseWriter.insert(JokerDatabaseHelper.ScrobbleTable, null, songValues);
+    }
+
+    public static SongDatabase getSongDatabase(Context context)
+    {
+        if (songDatabase == null)
+            songDatabase = new SongDatabase(context);
+        return songDatabase;
     }
 }

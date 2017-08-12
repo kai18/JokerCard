@@ -39,7 +39,7 @@ public class ScrobbleListActivity extends AppCompatActivity {
         songListView.setItemAnimator(new DefaultItemAnimator());
         songListView.setLayoutManager(new LinearLayoutManager(this));
         Log.d("at", "main");
-        db = new SongDatabase(this);
+        db = SongDatabase.getSongDatabase(this);
         int numSongList = 10;
         while(numSongList-- > 0) {
             Song song = db.getSong();
@@ -64,7 +64,7 @@ public class ScrobbleListActivity extends AppCompatActivity {
             Log.d("Exiting","Update");
             return;
         }
-        if (nowPlaying.getTitle() != song.getTitle())
+        if (!nowPlaying.getTitle().equals(song.getTitle()))
         {
             Log.d("Should we be", "Here?");
             db.insertSong(song);
