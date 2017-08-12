@@ -10,12 +10,14 @@ import android.util.Log;
  * Created by kaustubh on 7/13/17.
  */
 
-class SongDatabase {
+public class SongDatabase
+{
     JokerDatabaseHelper helper;
     SQLiteDatabase databaseWriter;
     SQLiteDatabase databaseReader;
     Cursor cursor;
-    public SongDatabase(Context mainActivitycontext) {
+    public SongDatabase(Context mainActivitycontext)
+    {
         helper = new JokerDatabaseHelper(mainActivitycontext, null, null, 1);
         databaseWriter = helper.getWritableDatabase();
         databaseReader = helper.getReadableDatabase();

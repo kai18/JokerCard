@@ -6,23 +6,22 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-
 
 public class MainActivity extends AppCompatActivity {
     public static MainActivity mainActivity = null;
 
-    Button login;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mainActivity = this;
-        SharedPreferences sharedPref = this.getSharedPreferences(
-                "nowplaying", Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getSharedPreferences(JokerPreference.jokerPreferenceFile
+                , Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("nowplaying", "lol");
+        editor.putString(JokerPreference.nowPlayingKey, JokerPreference.nowPlayingDefault);
         editor.commit();
 
     }
@@ -56,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("userId", id);
         editor.commit();
 
-        startActivity(new Intent(this, ScrobbleListActivity.class));
-
+        this.startActivity(new Intent(this, ScrobbleListActivity.class));
     }
 
 

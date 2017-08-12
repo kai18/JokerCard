@@ -11,6 +11,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.net.URL;
+import java.net.URLConnection;
+
 import tech.kaustubh.jokercard.JokerDatabaseHelper;
 import tech.kaustubh.jokercard.MainActivity;
 import tech.kaustubh.jokercard.R;
@@ -23,18 +26,18 @@ import tech.kaustubh.jokercard.Song;
 
 public class MusicReceiver extends BroadcastReceiver {
 
-    String track = "track";
-    String title = "title";
-    String album = "album";
-    String artist = "artist";
+    private String track = "track";
+    private String title = "title";
+    private String album = "album";
+    private String artist = "artist";
+    private static final String nowPlayingKey  = "nowplaying";
+    private static final String nowPlayingDefault  = "lol";
+    private String table ="ScrobbleTable";
 
-    String table ="ScrobbleTable";
+    private SharedPreferences sharedPref = null;
+    private String currentSong = null;
 
-    Song nowPlaying = null;
-    SharedPreferences sharedPref = null;
-    String currentSong = null;
-
-    JokerDatabaseHelper databaseHelper;
+    private JokerDatabaseHelper databaseHelper;
 
 
 
@@ -52,7 +55,7 @@ public class MusicReceiver extends BroadcastReceiver {
         Bundle b = intent.getExtras();
         Song song = new Song();
 
-        currentSong= sharedPref.getString("nowplaying", "lol");
+        currentSong= sharedPref.getString(nowPlayingKey, nowPlayingDefault);
         Log.d("Current SOmg", currentSong);
         if (b.containsKey(track))
         {
@@ -79,9 +82,7 @@ public class MusicReceiver extends BroadcastReceiver {
             editor.commit();
             Log.d(sharedPref.getString("nowplaying", "lol"), "SOng");
             if(ScrobbleListActivity.isActive)
-            {
                 ScrobbleListActivity.scrobbleListActivity.updateSongList(song);
-            }
             else
             {
                 SQLiteDatabase dbHandler = databaseHelper.getWritableDatabase();

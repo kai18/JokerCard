@@ -29,15 +29,6 @@ public class AndroidMusic extends MusicReceiver{
     public void onReceive(Context context, Intent intent) {
         Log.d("Player", "Logged");
         Log.d("Action", intent.getAction());
-        Bundle b = intent.getExtras();
-        for (String key: b.keySet()) {
-            Log.d("Key", key);
-        }
-            Song song = new Song();
-            Log.d("Track", (String) b.get("track"));
-            Log.d("album", (String) b.get("album"));
-            song.setTitle((String) b.get("track"));
-            song.setAlbum((String) b.get("album"));
             super.onReceive(context, intent);
     }
 }

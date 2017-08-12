@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScrobbleListActivity"></activity>
+        <activity android:name=".ScrobbleListActivity" />
 
         <receiver
             android:name=".Receivers.AndroidMusic"
@@ -31,7 +31,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".UserList"></activity>
+        <activity android:name=".UserList" />
     </application>
 
 </manifest>

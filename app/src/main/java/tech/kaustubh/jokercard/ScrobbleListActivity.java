@@ -1,8 +1,6 @@
 package tech.kaustubh.jokercard;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,14 +18,14 @@ public class ScrobbleListActivity extends AppCompatActivity {
     public static ScrobbleListActivity scrobbleListActivity = null;
     public static boolean isActive = false;
 
-    RecyclerView songListView = null;
+    private RecyclerView songListView = null;
 
-    SongListAdapter adapter = null;
+    private SongListAdapter adapter = null;
 
-    Song nowPlaying = null;
-    SongDatabase db = null;
+    private Song nowPlaying = null;
+    private SongDatabase db = null;
 
-    ArrayList<Song> songList = null;
+    private ArrayList<Song> songList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +43,6 @@ public class ScrobbleListActivity extends AppCompatActivity {
         int numSongList = 10;
         while(numSongList-- > 0) {
             Song song = db.getSong();
-//            Log.d("Adding Song", song.getTitle());
             songList.add(song);
         }
         adapter.notifyDataSetChanged();
@@ -80,6 +77,7 @@ public class ScrobbleListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        isActive = true;
 
     }
 
@@ -88,12 +86,14 @@ public class ScrobbleListActivity extends AppCompatActivity {
     public void onStop()
     {
         super.onStop();
+        isActive = false;
     }
 
     @Override
     public void onResume()
     {
         super.onResume();
+        isActive = true;
     }
 
 }
