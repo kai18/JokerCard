@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -31,6 +33,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongHo
     @Override
     public void onBindViewHolder(SongHolder holder, int position) {
         holder.text.setText(songList.get(position).getTitle());
+        holder.artist.setText(songList.get(position).getArtist());
         Log.d("inside", "songlistadpater");
 
     }
@@ -43,11 +46,13 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongHo
 
     public class SongHolder extends RecyclerView.ViewHolder {
         TextView text;
+        TextView artist;
 
         public SongHolder(View itemView) {
             super(itemView);
             Log.d("inside", "songlistadpater");
             text = (TextView) itemView.findViewById(R.id.songView);
+            artist = (TextView) itemView.findViewById(R.id.songArtist);
         }
     }
 }
