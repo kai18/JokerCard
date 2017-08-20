@@ -31,47 +31,60 @@ public class ScrobbleListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.songlistview);
+        isActive = true;
+
         scrobbleListActivity = this;
+
         songList = new ArrayList<>();
         songListView = (RecyclerView) findViewById(R.id.songList);
+
         adapter = new SongListAdapter(songList);
         songListView.setAdapter(adapter);
         songListView.setItemAnimator(new DefaultItemAnimator());
         songListView.setLayoutManager(new LinearLayoutManager(this));
-        Log.d("at", "main");
-        db = SongDatabase.getSongDatabase(this);
-        int numSongList = 10;
-        while(numSongList-- > 0) {
-            Song song = db.getSong();
-            songList.add(song);
-        }
-        adapter.notifyDataSetChanged();
 
-        isActive = true;
+        Log.d("at", "main");
+
+        db = SongDatabase.getSongDatabase(this);
+        if(db.getCount() > 0)
+        {
+            int numSong =  db.getCount();
+            while (numSong-- > 0)
+            {
+                Song song = db.getSong();
+                if(song != null)
+                    songList.add(song);
+            }
+            adapter.notifyDataSetChanged();
+        }
     }
 
-    public void updateSongList(Song song)
-    {
-        if(nowPlaying == null) {
+    public void updateSongList(Song song) {
+        Log.d("Called", "updatelist");
+
+        if (nowPlaying == null) {
             nowPlaying = song;
             songList.add(song);
         }
+
         String title = song.getTitle();
         Log.d("Tac", title);
         Log.d(String.valueOf(nowPlaying.getTitle().length()), String.valueOf(song.getTitle().length()));
-        if (nowPlaying.getTitle().equals(song.getTitle()))
-        {
-            Log.d("Exiting","Update");
+
+        /*if (nowPlaying.getTitle().equals(song.getTitle())) {
+            Log.d("Exiting", "Update");
             return;
-        }
-        if (!nowPlaying.getTitle().equals(song.getTitle()))
-        {
+        }*/
+
+        if (!nowPlaying.getTitle().equals(song.getTitle())) {
             Log.d("Should we be", "Here?");
             db.insertSong(song);
             nowPlaying = song;
             songList.add(song);
             adapter.notifyDataSetChanged();
         }
+
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -83,15 +96,13 @@ public class ScrobbleListActivity extends AppCompatActivity {
 
 
     @Override
-    public void onStop()
-    {
+    public void onStop() {
         super.onStop();
         isActive = false;
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         isActive = true;
     }

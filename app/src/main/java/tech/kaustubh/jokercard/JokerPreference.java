@@ -6,8 +6,8 @@ package tech.kaustubh.jokercard;
 
 public class JokerPreference {
 
-    static final String nowPlayingKey  = "nowplaying";
-    static final String nowPlayingDefault  = "lol";
+    static final String nowPlayingKey = "nowplaying";
+    static final String nowPlayingDefault = "lol";
     static final String jokerPreferenceFile = "joker";
 
 }

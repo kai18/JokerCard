@@ -30,7 +30,7 @@ public class SongListAdapter extends RecyclerView.Adapter<SongListAdapter.SongHo
 
     @Override
     public void onBindViewHolder(SongHolder holder, int position) {
-        holder.text.setText((CharSequence) songList.get(position).getTitle());
+        holder.text.setText(songList.get(position).getTitle());
         Log.d("inside", "songlistadpater");
 
     }

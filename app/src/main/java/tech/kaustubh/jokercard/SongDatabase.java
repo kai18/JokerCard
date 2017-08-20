@@ -10,63 +10,72 @@ import android.util.Log;
  * Created by kaustubh on 7/13/17.
  */
 
-public class SongDatabase
-{
+public class SongDatabase {
+    private static SongDatabase songDatabase;
     private JokerDatabaseHelper helper;
     private SQLiteDatabase databaseWriter;
     private SQLiteDatabase databaseReader;
     private Cursor cursor;
-    private static SongDatabase songDatabase;
-    private SongDatabase(Context mainActivitycontext)
-    {
+
+    private SongDatabase(Context mainActivitycontext) {
+
         helper = new JokerDatabaseHelper(mainActivitycontext, null, null, 1);
         databaseWriter = helper.getWritableDatabase();
         databaseReader = helper.getReadableDatabase();
-        String projection[] ={"id", JokerDatabaseHelper.TITLE, JokerDatabaseHelper.ALBUM,
+
+        String projection[] = {"id", JokerDatabaseHelper.TITLE, JokerDatabaseHelper.ALBUM,
                 JokerDatabaseHelper.ARTIST};
         String sortColumn = "id";
         String sortOrder = "Desc";
+
         cursor = databaseReader.query(JokerDatabaseHelper.ScrobbleTable,
-                projection, null, null, null, null, sortColumn+ " " + sortOrder);
-        if(cursor == null)
+                projection, null, null, null, null, sortColumn + " " + sortOrder);
+
+        if (cursor == null)
             Log.d("Cursor", "is null");
+
         cursor.moveToFirst();
     }
 
-    private void getSongCursor()
-    {
-
+    public static SongDatabase getSongDatabase(Context context) {
+        if (songDatabase == null)
+            songDatabase = new SongDatabase(context);
+        return songDatabase;
     }
 
-    Song getSong()
-    {
+    public Song getSong() {
+
         Song song = new Song();
-        if(cursor.getCount() > 0) {
+
+        if (cursor.getCount() > 0) {
+
             Log.d("Database count", String.valueOf(cursor.getColumnCount()));
-            Log.d("Song id", String.valueOf(cursor.getString(0)));
+            //Log.d("Song id", String.valueOf(cursor.getString(0)));
 
             song.setArtist(cursor.getString(3));
             song.setAlbum(cursor.getString(2));
             song.setTitle(cursor.getString(1));
             cursor.moveToNext();
         }
+
+        else
+            song = null;
         return song;
 
     }
 
-    void insertSong(Song song)
+    public int getCount()
     {
+
+        return cursor.getCount();
+    }
+
+
+    public void insertSong(Song song) {
         ContentValues songValues = new ContentValues();
         songValues.put(JokerDatabaseHelper.ALBUM, song.getAlbum());
         songValues.put(JokerDatabaseHelper.ARTIST, song.getArtist());
-        songValues.put(JokerDatabaseHelper.TITLE,song.getTitle());
+        songValues.put(JokerDatabaseHelper.TITLE, song.getTitle());
         databaseWriter.insert(JokerDatabaseHelper.ScrobbleTable, null, songValues);
-    }
-
-    public static SongDatabase getSongDatabase(Context context)
-    {
-        if (songDatabase == null)
-            songDatabase = new SongDatabase(context);
-        return songDatabase;
     }
 }

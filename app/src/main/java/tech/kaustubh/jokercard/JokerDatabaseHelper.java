@@ -11,20 +11,20 @@ import android.util.Log;
 
 public class JokerDatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME = "Joker";
-    private static final int DB_VERSION = 7;
     static final String TITLE = "Title";
     static final String ALBUM = "Album";
-    static final String ARTIST ="Artist";
+    static final String ARTIST = "Artist";
     static final String ScrobbleTable = "ScrobbleTable";
-
-    private static final String DB_CREATE = "CREATE TABLE "+ScrobbleTable +
+    private static final String DB_NAME = "Joker";
+    private static final int DB_VERSION = 7;
+    private static final String DB_CREATE = "CREATE TABLE " + ScrobbleTable +
             "(id integer primary key autoincrement," +
-            TITLE+" varchar(255)," +
-            ALBUM+" varchar(255)," +
-            ARTIST+" varchar(255));";
+            TITLE + " varchar(255)," +
+            ALBUM + " varchar(255)," +
+            ARTIST + " varchar(255));";
+
     public JokerDatabaseHelper(Context context, String name,
-                                SQLiteDatabase.CursorFactory factory, int version) {
+                               SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DB_NAME, factory, DB_VERSION);
     }
 
@@ -38,6 +38,6 @@ public class JokerDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String drop = "alter table ScrobbleTable add column Artist char(50);";
         db.execSQL(drop);
-        Log.d("On","Upgrade");
+        Log.d("On", "Upgrade");
     }
 }
